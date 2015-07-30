@@ -10,6 +10,7 @@ import br.com.loki.bo.SolicitacaoBO;
 import br.com.loki.entity.Post;
 import br.com.loki.entity.Solicitacao;
 import br.com.loki.exception.BancoDadosException;
+import br.com.loki.util.Gmail;
 
 @ManagedBean
 @ViewScoped
@@ -34,6 +35,7 @@ public class MeusPostMB extends LokiManagedBean<Post> {
         try {
             s.setStatus(Solicitacao.APROVADO);
             new SolicitacaoBO().persist(s);
+            Gmail.sendMail(s.getSolicitante().getEmail(), "Solicitação Aprovada!", "Solicitação Aprovada: http://localhost:8080/Loki/solicitacoes.jsf");
         } catch (Exception e) {
             e.printStackTrace();
         }
