@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+<pm:header title="Loki">
+	<p:commandButton id="btn-basic" value="Menu" type="button" icon="ui-icon-bars" />
+</pm:header>
+<p:overlayPanel for="btn-basic" widgetVar="pnl-basic" at="left" showEffect="overlay">
+	<h2>Menu</h2>
+	<p:menu>
+		<p:submenu label="Criar">
+			<p:menuitem value="Post" url="post.jsf" />
+			<p:menuitem value="Meus Post" url="meuspost.jsf" />
+		</p:submenu>
+		<p:submenu label="Ver">
+			<p:menuitem value="Solicitar" url="solicitacao.jsf" />
+			<p:menuitem value="Minhas Solicitações" url="solicitacoes.jsf" />	
+		</p:submenu>
+	</p:menu>
+</p:overlayPanel>
+
+</html>

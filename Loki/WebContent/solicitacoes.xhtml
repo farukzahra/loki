@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+
+			<h:form id="form">
+				<p:dataTable var="s" value="#{solicitacoesMB.solicitacoes}" tableStyleClass="ui-table-columntoggle">
+					<p:column headerText="ID" priority="3">
+						<h:outputText value="#{s.post.id}" />
+					</p:column>
+					<p:column headerText="Usuário" priority="3">
+						<h:outputText value="#{s.post.usuario.nome}" />
+					</p:column>
+					<p:column headerText="Data" priority="2">
+						<h:outputText value="#{s.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Aprovação" priority="1">
+						<h:outputText value="#{s.statusCompleto}" rendered="#{!s.aprovado}"/>
+						<p:commandButton value="#{s.statusCompleto}" action="#{solicitacoesMB.actionVerPost(s.post)}" process="@this" update="second" rendered="#{s.aprovado}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</pm:content>
+	</pm:page>
+
+	<pm:page id="second" lazy="true">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+			<h:form id="form">
+
+				<pm:field>
+					<h:outputLabel for="result" value="Texto: " />
+					<p:inputTextarea id="result" value="#{solicitacoesMB.post.descricao}" rows="20" />
+				</pm:field>
+
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

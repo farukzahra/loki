@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+
+		<pm:content id="content">
+			<h:form id="form">
+				<pm:field>
+					<h:outputLabel for="post" value="Post: " />
+					<p:inputTextarea id="post" value="#{postMB.entity.descricao}" cols="50" />
+					<p:message for="post" />
+				</pm:field>
+
+				<p:separator />
+
+				<p:commandButton id="persist" value="Gerar" action="#{postMB.actionPersist}" process="@form" update="@form,second" />
+			</h:form>
+		</pm:content>
+	</pm:page>
+
+	<pm:page id="second" lazy="true">
+		<ui:include src="menu.xhtml"></ui:include>
+
+		<pm:content id="content">
+			<h:form id="form">
+
+				<pm:field>
+					<h:outputLabel for="result" value="Copie e cole em sua rede social: " />
+					<p:inputTextarea id="result" value="#{postMB.mensagem}" rows="7"/>
+				</pm:field>
+
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

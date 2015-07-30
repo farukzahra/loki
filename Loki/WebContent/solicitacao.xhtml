@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+			<h:form id="form">
+				<p:growl id="growl" showDetail="true" />
+				<pm:field>
+					<h:outputLabel for="post" value="Código: " />
+					<p:inputText id="post" value="#{solicitacaoMB.idpost}" />
+					<p:message for="post" />
+				</pm:field>
+
+				<p:separator />
+
+				<p:commandButton id="persist" value="Solicitar" actionListener="#{solicitacaoMB.actionPersistSolicitacao}" process="@form" update="growl" />
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

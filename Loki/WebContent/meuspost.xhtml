@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+
+			<h:form id="form">
+				<p:dataTable var="p" value="#{meusPostMB.postUsuarioLogado}" tableStyleClass="ui-table-columntoggle">
+					<p:column headerText="ID" priority="2" width="5">
+						<h:outputText value="#{p.id}" />
+					</p:column>
+
+					<p:column headerText="Data" priority="3">
+						<h:outputText value="#{p.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Texto" priority="1">
+						<h:outputText value="#{p.descricaoCurta}" />
+					</p:column>
+					<p:column headerText="Texto" priority="1">
+						<p:commandButton value="#{p.totalSolicitacoes} Solicitações" action="#{meusPostMB.actionBuscarSolicitacao(p)}" process="@this" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</pm:content>
+	</pm:page>
+
+	<pm:page id="second" lazy="true">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+			<h:form id="form">
+
+				<p:dataTable var="s" value="#{meusPostMB.solicitacoes}" tableStyleClass="ui-table-columntoggle">
+					<p:column headerText="Usuário" priority="1">
+						<h:outputText value="#{s.solicitante.nome}" />
+					</p:column>
+					<p:column headerText="Email" priority="2">
+						<h:outputText value="#{s.solicitante.email}" />
+					</p:column>
+					<p:column headerText="Data" priority="3">
+						<h:outputText value="#{s.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Aprovação" priority="1" rendered="#{s.novo}">
+						<p:commandButton value="Aprovar" action="#{meusPostMB.actionAprovarSolicitacao(s)}" process="@this" update="second" />
+						<p:commandButton value="Negar" action="#{meusPostMB.actionNegarSolicitacao(s)}" process="@this" update="second" />
+					</p:column>
+					<p:column headerText="Aprovação" priority="1" rendered="#{!s.novo}">
+						<h:outputText value="#{s.statusCompleto}" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</pm:content>
+	</pm:page>
+
+</h:body>
+</html>
