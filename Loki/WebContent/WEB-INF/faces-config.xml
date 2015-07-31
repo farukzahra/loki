@@ -11,6 +11,29 @@
 			org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
 	</application>
 
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+
+		<resource-bundle>
+			<base-name>br.com.loki.resources.loki</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<message-bundle>br.com.loki.resources.loki</message-bundle>
+	</application>
+
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>br.com.lume.loki.resources.loki</base-name>
+			<var>isvendas</var>
+		</resource-bundle>
+		<message-bundle>br.com.lume.loki.resources.loki</message-bundle>
+	</application>
+
 	<lifecycle>
 		<phase-listener>br.com.loki.util.AuthorizationListener</phase-listener>
 	</lifecycle>

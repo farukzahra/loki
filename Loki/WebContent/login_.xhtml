@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+	<style>
+#login-box {
+	margin: auto;
+	width: 920px;
+}
+
+#login-box-col01 {
+	float: left;
+	margin-right: 30px;
+	width: 500px;
+}
+
+#login-box-col01 h1 {
+	font-size: 33px !important;
+	margin: 0;
+}
+
+#login-box-col01 h2 {
+	font-size: 17px;
+	font-weight: normal;
+	margin: 30px 0 0 !important;
+}
+
+#login-box-col02 {
+	border-left: 1px solid #ccc;
+	float: left;
+	padding-left: 30px;
+	width: 347px;
+}
+
+.carousel-caption h4 {
+	background: #5b8384 none repeat scroll 0 0;
+	color: #fff;
+	margin: -314px 0 0 -100px !important;
+	padding: 10px !important;
+	width: 480px;
+}
+
+.carousel-caption h5 {
+	background: #5b8384 none repeat scroll 0 0;
+	bottom: -20px;
+	color: #fff;
+	margin-left: -100px !important;
+	padding: 10px !important;
+	position: absolute;
+	width: 500px;
+}
+
+.carousel-indicators {
+	display: none;
+}
+
+.bt-facebook {
+	background: #3b589c none repeat scroll 0 0;
+	color: #fff;
+	text-shadow: 1px 1px 0 #304880;
+}
+
+.bt-mail {
+	background: #3282bc none repeat scroll 0 0;
+	color: #fff;
+	text-shadow: 2px 2px 0 #3278b1;
+}
+
+.bt-login-txt {
+	border-radius: 5px;
+	color: #fff !important;
+	display: block;
+	font-size: 15px !important;
+	font-weight: bold;
+	height: 32px;
+	padding: 5px;
+	width: 344px;
+}
+
+.bt-login-txt:hover {
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.bt-login-txt img {
+	border-right: 1px solid #fff;
+	border-width: 0 1px 0 0;
+	float: left;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.bt-login-txt span {
+	float: left;
+	margin-top: 7px;
+}
+
+.subtitle {
+	font-size: 14px;
+}
+
+.subtitle-min {
+	font-size: 11px;
+}
+
+#login-box-col02 .input_template {
+	border: 1px solid #ccc;
+	margin-top: 5px;
+	padding: 5px;
+	width: 99%;
+}
+
+.carousel-control {
+	cursor: pointer !important;
+}
+</style>
+</h:head>
+<h:body onload="loginStatus();">
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+
+			<h:form id="form">
+
+				<p:remoteCommand name="loginJava" actionListener="#{loginMB.actionLogin}" out="count" />
+
+				<p:button value="Entrar usando Facebook"
+					style="background-color: #3B589C; color: #fff !important;font-size: 15px !important;text-shadow: none;background-image: url('https://s3-sa-east-1.amazonaws.com/skoob-sp/img/v2/icon-facebook.jpg');
+    background-repeat: no-repeat; background-position: left center;" onclick="compartilhar();"/>
+
+
+				<div id="fb-root"></div>
+
+				<script>
+					//<![CDATA[
+					window.fbAsyncInit = function() {
+						FB.init({
+							appId : '1455047294792410',
+							xfbml : true,
+							version : 'v2.4'
+						});
+					};
+
+					(function(d, s, id) {
+						var js, fjs = d.getElementsByTagName(s)[0];
+						if (d.getElementById(id)) {
+							return;
+						}
+						js = d.createElement(s);
+						js.id = id;
+						js.src = "//connect.facebook.net/pt_BR/sdk.js";
+						fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+
+					function loginStatus() {
+						FB.getLoginStatus(function(response) {
+							if (response.status === 'connected') {
+								// the user is logged in and has authenticated your
+								// app, and response.authResponse supplies
+								// the user's ID, a valid access token, a signed
+								// request, and the time the access token 
+								// and signed request each expire
+								var uid = response.authResponse.userID;
+								var accessToken = response.authResponse.accessToken;
+								loginJava([ {
+									name : 'accessTokenParam',
+									value : accessToken
+								}, {
+									name : 'uidParam',
+									value : uid
+								} ]);
+
+							} else if (response.status === 'not_authorized') {
+								// the user is logged in to Facebook, 
+								// but has not authenticated your app
+							} else {
+								// the user isn't logged in to Facebook.
+							}
+						});
+					}
+					
+					function fbLogin(){
+					    FB.login(function(response) {
+
+					        if (response.authResponse) {
+					        	var uid = response.authResponse.userID;
+								var accessToken = response.authResponse.accessToken;
+								loginJava([ {
+									name : 'accessTokenParam',
+									value : accessToken
+								}, {
+									name : 'uidParam',
+									value : uid
+								} ]);
+
+					        } else {
+					            //user hit cancel button
+					            console.log('User cancelled login or did not fully authorize.');
+
+					        }
+					    }, {
+					        scope: 'email,public_profile', redirect_uri: 'http://localhost:8080/Loki/login.jsf' , display : 'touch'
+					    });
+					}
+					
+					function compartilhar(){
+						FB.ui({
+							  method: 'share',
+							  href: 'https://developers.facebook.com/docs/',
+							}, function(response){});
+					}
+
+					//]]>
+				</script>
+			
+				<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="true" onlogin="loginStatus()"
+					scope="public_profile,email"></div>
+
+				<p>
+					<a href="/login/facebook/" class="bt-facebook bt-login-txt"><img src='https://s3-sa-east-1.amazonaws.com/skoob-sp/img/v2/icon-facebook.jpg' /><span>Entrar
+							usando Facebook</span></a>
+				</p>
+
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

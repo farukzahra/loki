@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+	<title>Loki | Login</title>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<pm:header title="Cadastro">
+			<f:facet name="left">
+				<p:button value="Voltar" icon="back" href="index.jsf" />
+			</f:facet>
+		</pm:header>
+		<pm:content id="content">
+
+			<h:form id="form">
+				<pm:field>
+					<h:outputLabel for="email" value="Email: " />
+					<p:inputText id="email" value="#{loginMB.entity.email}" required="true" />
+					<p:message for="email" />
+				</pm:field>
+
+				<pm:field>
+					<h:outputLabel for="senha" value="Senha: " />
+					<h:inputSecret id="senha" value="#{loginMB.entity.senha}" required="true" />
+					<p:message for="senha" />
+				</pm:field>
+
+				<p:separator />
+				<pm:field>
+					<p:commandButton value="Login" icon="forward" action="#{loginMB.actionLogin}" />
+				</pm:field>
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

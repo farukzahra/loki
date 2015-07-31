@@ -17,7 +17,7 @@ public class AuthorizationListener implements PhaseListener {
 
     private static Logger log = Logger.getLogger(AuthorizationListener.class);
 
-    private static final String[] PAGINAS_LIVRE_ACESSO = new String[] { "/login.xhtml" };
+    private static final String[] PAGINAS_LIVRE_ACESSO = new String[] { "/login.xhtml" ,  "/cadastro.xhtml"  , "/index.xhtml" };
 
     public void beforePhase(PhaseEvent event) {
         HttpSession httpSession = JSFHelper.getSession();

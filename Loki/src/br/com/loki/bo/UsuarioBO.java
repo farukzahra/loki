@@ -17,12 +17,17 @@ public class UsuarioBO extends BO<Usuario> {
         super();
         setClazz(Usuario.class);
     }
-
-    public Usuario doLogin(Usuario usuarioLogin) throws Exception{
+    
+    public Usuario findByEmail(String email) throws Exception{
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("UPPER(o.email) = '"+usuarioLogin.getEmail().toUpperCase() +"'", BO.FILTRO_GENERICO_QUERY);
+        param.put("UPPER(o.email) = '"+email +"'", BO.FILTRO_GENERICO_QUERY);
 
         Usuario usuarioBanco = super.findByFields(param);
+        return usuarioBanco;
+    }
+
+    public Usuario doLogin(Usuario usuarioLogin) throws Exception{
+        Usuario usuarioBanco = findByEmail(usuarioLogin.getEmail());
         if(usuarioBanco != null){
             String senhaBanco =  usuarioBanco.getSenha();           
             String senhaLogin = CryptMD5.encrypt(usuarioLogin.getEmail().toUpperCase(), usuarioLogin.getSenha().toUpperCase());

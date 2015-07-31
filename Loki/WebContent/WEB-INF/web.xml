@@ -6,8 +6,9 @@
 	<display-name>Loki</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
-	<session-config>  
+	<session-config>
 		<session-timeout>240</session-timeout>
 	</session-config>
 	<servlet>
@@ -19,6 +20,6 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 </web-app>
