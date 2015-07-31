@@ -5,7 +5,7 @@
 	<p:commandButton id="btn-basic" value="Menu" type="button" icon="ui-icon-bars" />
 </pm:header>
 <p:overlayPanel for="btn-basic" widgetVar="pnl-basic" at="left" showEffect="overlay">
-	<h2>Menu</h2>
+	<h2>#{loginMB.nomeUsuarioLogado}</h2>
 	<p:menu>
 		<p:submenu label="Criar">
 			<p:menuitem value="Post" url="post.jsf" />

@@ -198,6 +198,7 @@ public abstract class LokiManagedBean<E extends Serializable> implements Seriali
     }
 
     public Usuario getUsuarioLogado() {
+        /**
         try {
             return new UsuarioBO().find(1L);
         } catch (BancoDadosException e) {
@@ -205,7 +206,8 @@ public abstract class LokiManagedBean<E extends Serializable> implements Seriali
             e.printStackTrace();
         }
         return null;
-        //return getSessionManaged().getUsuarioLogado();
+        **/
+        return getSessionManaged().getUsuarioLogado();
     }
 
     public void setUsuarioLogado(Usuario usuarioLogado) {

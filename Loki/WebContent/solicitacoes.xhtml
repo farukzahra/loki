@@ -4,6 +4,7 @@
 
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
+	<title>Loki | Minhas Solicitações</title>
 </h:head>
 <h:body>
 	<pm:page id="first">
@@ -24,8 +25,9 @@
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Aprovação" priority="1">
-						<h:outputText value="#{s.statusCompleto}" rendered="#{!s.aprovado}"/>
-						<p:commandButton value="#{s.statusCompleto}" action="#{solicitacoesMB.actionVerPost(s.post)}" process="@this" update="second" rendered="#{s.aprovado}" />
+						<h:outputText value="#{s.statusCompleto}" rendered="#{!s.aprovado}" />
+						<p:commandButton value="#{s.statusCompleto}" action="#{solicitacoesMB.actionVerPost(s.post)}" process="@this" update="second"
+							rendered="#{s.aprovado}" />
 					</p:column>
 				</p:dataTable>
 			</h:form>

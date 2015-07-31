@@ -6,9 +6,13 @@
 	version="2.1">
 	<application>
 		<default-render-kit-id>PRIMEFACES_MOBILE</default-render-kit-id>
-	
+
 		<navigation-handler>
-			org.primefaces.mobile.application.MobileNavigationHandler
-		</navigation-handler>
+			org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
 	</application>
+
+	<lifecycle>
+		<phase-listener>br.com.loki.util.AuthorizationListener</phase-listener>
+	</lifecycle>
+
 </faces-config>

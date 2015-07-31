@@ -31,6 +31,6 @@ public class CryptMD5 {
     }
 	
 	public static void main(String[] args) {
-        System.out.println(new CryptMD5().encrypt("EGUIMARAES", "SENHA01"));
+        System.out.println(new CryptMD5().encrypt("FARUKZ@GMAIL.COM", "SENHA01"));
     }
 }
