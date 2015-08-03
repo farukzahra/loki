@@ -25,8 +25,15 @@ public class AuthorizationListener implements PhaseListener {
         HttpServletResponse response = JSFHelper.getResponse();
         Usuario usuarioLogado = sessionManaged != null ? sessionManaged.getUsuarioLogado() : null;
         String currentPage = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        if(currentPage.equals("/solicitacao.xhtml")){
+            String idPost = (String) Utils.getValorParametro("idpost");
+            //sessionManaged.setIdPost(idPost);
+            if(idPost != null && !idPost.trim().equals("") && !idPost.equals("null")) {
+                httpSession.setAttribute("ID_POST", idPost);
+            }
+        }                
         if (!isPaginaLivreAcesso(currentPage)) {
-            if (usuarioLogado == null) {
+            if (usuarioLogado == null) {                
                 JSFHelper.redirect("login.jsf");
             }
         }

@@ -8,12 +8,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import br.com.loki.bo.BO;
 import br.com.loki.bo.PostBO;
 import br.com.loki.bo.SolicitacaoBO;
 import br.com.loki.entity.Post;
 import br.com.loki.entity.Solicitacao;
-import br.com.loki.util.Utils;
+import br.com.loki.util.JSFHelper;
 
 @ManagedBean
 @ViewScoped
@@ -21,7 +20,7 @@ public class SolicitacaoMB extends LokiManagedBean<Solicitacao> {
     private String mensagem, idpost;
 
     public SolicitacaoMB() {
-        idpost = (String) Utils.getValorParametro("idpost");
+        idpost =  (String)JSFHelper.getSession().getAttribute("ID_POST");
         this.setClazz(Solicitacao.class);
         setBo(new SolicitacaoBO());
     }
@@ -53,7 +52,7 @@ public class SolicitacaoMB extends LokiManagedBean<Solicitacao> {
             mensagem = "ID inválido!";
         }
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Obrigado", mensagem));
+        context.addMessage(null, new FacesMessage(mensagem, null));
     }
 
     public String getMensagem() {

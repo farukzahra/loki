@@ -118,7 +118,6 @@
 </h:head>
 <h:body onload="loginStatus();">
 	<pm:page id="first">
-		<ui:include src="menu.xhtml"></ui:include>
 		<pm:content id="content">
 
 			<h:form id="form">
@@ -127,7 +126,7 @@
 
 				<p:button value="Entrar usando Facebook"
 					style="background-color: #3B589C; color: #fff !important;font-size: 15px !important;text-shadow: none;background-image: url('https://s3-sa-east-1.amazonaws.com/skoob-sp/img/v2/icon-facebook.jpg');
-    background-repeat: no-repeat; background-position: left center;" onclick="compartilhar();"/>
+    background-repeat: no-repeat; background-position: left center;" onclick="loginStatus();"/>
 
 
 				<div id="fb-root"></div>
@@ -155,6 +154,7 @@
 
 					function loginStatus() {
 						FB.getLoginStatus(function(response) {
+							alert(response.status);
 							if (response.status === 'connected') {
 								// the user is logged in and has authenticated your
 								// app, and response.authResponse supplies
@@ -175,7 +175,7 @@
 								// the user is logged in to Facebook, 
 								// but has not authenticated your app
 							} else {
-								// the user isn't logged in to Facebook.
+								fbLogin();
 							}
 						});
 					}

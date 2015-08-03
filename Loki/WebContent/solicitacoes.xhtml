@@ -5,6 +5,7 @@
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
 	<title>Loki | Minhas Solicitações</title>
+	<ui:include src="meta.xhtml"></ui:include>
 </h:head>
 <h:body>
 	<pm:page id="first">
@@ -13,7 +14,7 @@
 
 			<h:form id="form">
 				<p:dataTable var="s" value="#{solicitacoesMB.solicitacoes}" tableStyleClass="ui-table-columntoggle">
-					<p:column headerText="ID" priority="3">
+					<p:column headerText="ID" priority="1">
 						<h:outputText value="#{s.post.id}" />
 					</p:column>
 					<p:column headerText="Usuário" priority="3">

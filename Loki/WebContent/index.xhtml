@@ -5,12 +5,14 @@
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
 	<title>Loki | Login</title>
+	<ui:include src="meta.xhtml"></ui:include>
 </h:head>
 <h:body>
 	<pm:page id="first">
 		<pm:content id="content">
 			<h:form id="form">
 
+				<p:graphicImage url="images/segredu.png" style="width:100%;" />
 				<p:commandButton value="Entrar" icon="forward" action="login.jsf" />
 				<p:separator />
 				<p:commandButton value="Cadastrar" icon="forward" action="cadastro.jsf" />

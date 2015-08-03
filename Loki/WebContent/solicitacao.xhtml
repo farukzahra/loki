@@ -5,13 +5,14 @@
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
 	<title>Loki | Solicitar</title>
+	<ui:include src="meta.xhtml"></ui:include>
 </h:head>
 <h:body>
 	<pm:page id="first">
 		<ui:include src="menu.xhtml"></ui:include>
 		<pm:content id="content">
 			<h:form id="form">
-				<p:growl id="growl" showDetail="true" />
+				<p:growl id="growl" showDetail="false" />
 				<pm:field>
 					<h:outputLabel for="post" value="Código: " />
 					<p:inputText id="post" value="#{solicitacaoMB.idpost}" />

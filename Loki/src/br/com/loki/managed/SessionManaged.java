@@ -15,6 +15,8 @@ public class SessionManaged extends LokiManagedBean<Usuario> {
 
     private Usuario usuarioLogado;
 
+    private String idPost;
+
     private static Logger log = Logger.getLogger(SessionManaged.class);
 
     public SessionManaged() {
@@ -28,5 +30,13 @@ public class SessionManaged extends LokiManagedBean<Usuario> {
 
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
+    }
+
+    public String getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
     }
 }

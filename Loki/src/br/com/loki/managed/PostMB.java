@@ -1,21 +1,13 @@
 package br.com.loki.managed;
 
 import java.util.Calendar;
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 
 import br.com.loki.bo.BO;
 import br.com.loki.bo.PostBO;
-import br.com.loki.bo.SolicitacaoBO;
 import br.com.loki.entity.Post;
-import br.com.loki.entity.Solicitacao;
-import br.com.loki.exception.BancoDadosException;
-import br.com.loki.exception.IntegridadeReferencialException;
-import br.com.loki.exception.RegistroExistenteException;
 
 @ManagedBean
 @ViewScoped
@@ -33,7 +25,7 @@ public class PostMB extends LokiManagedBean<Post> {
         // super.actionPersist(event);
         try {
             new BO<Post>().persist(getEntity());
-            mensagem = "Eu fiz um POST SECRETO no LOKI.ME (http://loki.me), se quiser descobrir o que eu escrevi acesso o LOKI.ME com este código: " + getEntity().getId() + " ou clique aqui http://localhost:8080/Loki/solicitacao.jsf?idpost="+getEntity().getId();
+            mensagem = "Eu tenho um SEGREDU, para descobrir acesse http://play4gold.htiweb.inf.br:8080/segredu/solicitacao.jsf?idpost="+getEntity().getId();
             setEntity(new Post());
         } catch (Exception e) {
             e.printStackTrace();
