@@ -20,7 +20,7 @@ public class UsuarioBO extends BO<Usuario> {
     
     public Usuario findByEmail(String email) throws Exception{
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("UPPER(o.email) = '"+email +"'", BO.FILTRO_GENERICO_QUERY);
+        param.put("UPPER(o.email) = '"+email.toUpperCase() +"'", BO.FILTRO_GENERICO_QUERY);
 
         Usuario usuarioBanco = super.findByFields(param);
         return usuarioBanco;

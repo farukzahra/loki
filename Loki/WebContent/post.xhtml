@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:og="http://opengraphprotocol.org/schema/">
 
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
-	<title>Loki | Post</title>
+	<title>Segredu | Post</title>
 	<ui:include src="meta.xhtml"></ui:include>
 </h:head>
 <h:body>
@@ -34,8 +35,26 @@
 
 				<pm:field>
 					<h:outputLabel for="result" value="Copie e cole em sua rede social: " />
-					<p:inputTextarea id="result" value="#{postMB.mensagem}" rows="7" />
+					<p:inputTextarea id="result" value="#{postMB.mensagem}" rows="7" onclick="this.select();" />
 				</pm:field>
+
+				<div id="fb-root"></div>
+				<script>
+					//<![CDATA[
+
+					(function(d, s, id) {
+						var js, fjs = d.getElementsByTagName(s)[0];
+						if (d.getElementById(id))
+							return;
+						js = d.createElement(s);
+						js.id = id;
+						js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.4&appId=931001220292231";
+						fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+					//]]>
+				</script>
+				<div class="fb-share-button" data-href="http://www.segredu.com.br/segredu/solicitacao.jsf?idpost=#{postMB.entity.id}"
+					data-layout="button_count"></div>
 
 			</h:form>
 		</pm:content>

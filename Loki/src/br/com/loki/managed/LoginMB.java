@@ -10,21 +10,20 @@ import br.com.loki.bo.UsuarioBO;
 import br.com.loki.entity.Usuario;
 import br.com.loki.util.JSFHelper;
 
-import com.restfb.DefaultFacebookClient;
-import com.restfb.FacebookClient;
-import com.restfb.Version;
-import com.restfb.types.User;
-
 @ManagedBean
 @RequestScoped
 public class LoginMB extends LokiManagedBean<Usuario> {
-    private String uid;
-
-    private String accessToken;
+    private String email, nome, idfacebook;
 
     public LoginMB() {
         this.setClazz(Usuario.class);
         setBo(new UsuarioBO());
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String logoff = JSFHelper.getRequestParameterMap("logoff");
+        if(logoff != null && logoff.equals("true")){
+            setUsuarioLogado(null);
+            JSFHelper.redirect("login.jsf?faces-redirect=true");
+        }        
     }
 
     public String getNomeUsuarioLogado() {
@@ -33,45 +32,70 @@ public class LoginMB extends LokiManagedBean<Usuario> {
 
     public void actionLogin() {
         try {
-            Usuario usuLogin = ((UsuarioBO) getBo()).doLogin(getEntity());
+            Usuario usuLogin = actionLoginFacebook();
+            if(usuLogin == null) {
+                usuLogin = ((UsuarioBO) getBo()).doLogin(getEntity());
+            }
             if (usuLogin != null) {
                 setUsuarioLogado(usuLogin);
                 if (JSFHelper.getSession().getAttribute("ID_POST") != null) {
-                    JSFHelper.redirect("solicitacao.jsf");
+                    JSFHelper.redirect("solicitacao.jsf?faces-redirect=true");
                 } else {
-                    JSFHelper.redirect("post.jsf");
+                    JSFHelper.redirect("post.jsf?faces-redirect=true");
                 }
+            }else{
+                addError("Usuário/Senha inválidos.", "");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void actionLogin_() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        uid = params.get("uidParam");
-        accessToken = params.get("accessTokenParam");
-        FacebookClient facebookClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_4);
-        System.out.println(uid);
-        System.out.println(accessToken);
-        User user = facebookClient.fetchObject("me", User.class);
-        System.out.println("User name: " + user.getName());
-        System.out.println("User name: " + user.getEmail());
+    public Usuario actionLoginFacebook() throws Exception{
+        email = JSFHelper.getRequestParameterMap("email");
+        nome = JSFHelper.getRequestParameterMap("nome");
+        idfacebook = JSFHelper.getRequestParameterMap("idfacebook");
+        if(email != null && !email.isEmpty()) {
+            Usuario usuario = ((UsuarioBO)getBo()).findByEmail(email);
+            if(usuario == null){
+                usuario = new Usuario();
+                usuario.setEmail(email);
+                usuario.setIdFacebook(idfacebook);
+                usuario.setNome(nome);
+                ((UsuarioBO)getBo()).persist(usuario);                
+            }else{
+                if(usuario.getIdFacebook() == null){
+                    usuario.setIdFacebook(idfacebook);
+                    usuario.setNome(nome);
+                    ((UsuarioBO)getBo()).persist(usuario);        
+                }
+            }
+            return usuario;
+        }
+        return null;
     }
 
-    public String getUid() {
-        return uid;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getNome() {
+        return nome;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getIdfacebook() {
+        return idfacebook;
+    }
+
+    public void setIdfacebook(String idfacebook) {
+        this.idfacebook = idfacebook;
     }
 }

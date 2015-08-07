@@ -4,7 +4,7 @@
 
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
-	<title>Loki | Minhas Solicitações</title>
+	<title>Segredu | Minhas Solicitações</title>
 	<ui:include src="meta.xhtml"></ui:include>
 </h:head>
 <h:body>
@@ -25,8 +25,8 @@
 							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Aprovação" priority="1">
-						<h:outputText value="#{s.statusCompleto}" rendered="#{!s.aprovado}" />
+					<p:column headerText="Aprovação" priority="1" style="text-align:center;font-weight:bold">
+						<h:outputText value="#{s.statusCompleto}" rendered="#{!s.aprovado}"/>
 						<p:commandButton value="#{s.statusCompleto}" action="#{solicitacoesMB.actionVerPost(s.post)}" process="@this" update="second"
 							rendered="#{s.aprovado}" />
 					</p:column>

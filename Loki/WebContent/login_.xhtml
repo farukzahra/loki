@@ -124,18 +124,14 @@
 
 				<p:remoteCommand name="loginJava" actionListener="#{loginMB.actionLogin}" out="count" />
 
-				<p:button value="Entrar usando Facebook"
-					style="background-color: #3B589C; color: #fff !important;font-size: 15px !important;text-shadow: none;background-image: url('https://s3-sa-east-1.amazonaws.com/skoob-sp/img/v2/icon-facebook.jpg');
-    background-repeat: no-repeat; background-position: left center;" onclick="loginStatus();"/>
-
-
 				<div id="fb-root"></div>
 
 				<script>
+					email = '';
 					//<![CDATA[
 					window.fbAsyncInit = function() {
 						FB.init({
-							appId : '1455047294792410',
+							appId : '931001220292231',
 							xfbml : true,
 							version : 'v2.4'
 						});
@@ -154,74 +150,70 @@
 
 					function loginStatus() {
 						FB.getLoginStatus(function(response) {
-							alert(response.status);
 							if (response.status === 'connected') {
-								// the user is logged in and has authenticated your
-								// app, and response.authResponse supplies
-								// the user's ID, a valid access token, a signed
-								// request, and the time the access token 
-								// and signed request each expire
-								var uid = response.authResponse.userID;
-								var accessToken = response.authResponse.accessToken;
-								loginJava([ {
-									name : 'accessTokenParam',
-									value : accessToken
-								}, {
-									name : 'uidParam',
-									value : uid
-								} ]);
-
+								getEmail();
 							} else if (response.status === 'not_authorized') {
-								// the user is logged in to Facebook, 
-								// but has not authenticated your app
 							} else {
 								fbLogin();
 							}
 						});
 					}
-					
-					function fbLogin(){
-					    FB.login(function(response) {
 
-					        if (response.authResponse) {
-					        	var uid = response.authResponse.userID;
-								var accessToken = response.authResponse.accessToken;
-								loginJava([ {
-									name : 'accessTokenParam',
-									value : accessToken
-								}, {
-									name : 'uidParam',
-									value : uid
-								} ]);
+					function getEmail() {
+						console.log('Welcome!  Fetching your information.... ');
+						FB.api('/me', {
+							fields : 'email , name'
+						}, function(response) {
+							email = response.email;
+							nome = response.name;
+							id = response.id;
 
-					        } else {
-					            //user hit cancel button
-					            console.log('User cancelled login or did not fully authorize.');
+							console.debug(response);
 
-					        }
-					    }, {
-					        scope: 'email,public_profile', redirect_uri: 'http://localhost:8080/Loki/login.jsf' , display : 'touch'
-					    });
+							loginJava([ {
+								name : 'email',
+								value : email
+							}, {
+								name : 'nome',
+								value : nome
+							} , {
+								name : 'idfacebook',
+								value : id
+							}]);
+
+						});
 					}
-					
-					function compartilhar(){
+
+					function fbLogin() {
+						FB
+								.login(
+										function(response) {
+
+											if (response.authResponse) {
+												getEmail();
+											} else {
+											}
+										},
+										{
+											scope : 'email,public_profile',
+											redirect_uri : 'http://localhost:8080/Loki/login.jsf',
+											display : 'touch'
+										});
+					}
+
+					function compartilhar() {
 						FB.ui({
-							  method: 'share',
-							  href: 'https://developers.facebook.com/docs/',
-							}, function(response){});
+							method : 'share',
+							href : 'https://developers.facebook.com/docs/',
+						}, function(response) {
+						});
 					}
 
 					//]]>
 				</script>
-			
+
 				<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="true" onlogin="loginStatus()"
-					scope="public_profile,email"></div>
-
-				<p>
-					<a href="/login/facebook/" class="bt-facebook bt-login-txt"><img src='https://s3-sa-east-1.amazonaws.com/skoob-sp/img/v2/icon-facebook.jpg' /><span>Entrar
-							usando Facebook</span></a>
-				</p>
-
+					scope="public_profile,email"></div>				
 			</h:form>
 		</pm:content>
 	</pm:page>

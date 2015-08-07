@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.loki.bo.BO;
 import br.com.loki.bo.PostBO;
 import br.com.loki.entity.Post;
+import br.com.loki.util.Mensagens;
 
 @ManagedBean
 @ViewScoped
@@ -25,7 +26,7 @@ public class PostMB extends LokiManagedBean<Post> {
         // super.actionPersist(event);
         try {
             new BO<Post>().persist(getEntity());
-            mensagem = "Eu tenho um SEGREDU, para descobrir acesse http://play4gold.htiweb.inf.br:8080/segredu/solicitacao.jsf?idpost="+getEntity().getId();
+            mensagem = "Eu tenho um SEGREDU, para descobrir acesse "+Mensagens.getMensagem("url.segredu")+"/segredu/solicitacao.jsf?idpost="+getEntity().getId();
             setEntity(new Post());
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:og="http://opengraphprotocol.org/schema/">
 
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 <h:head>
-	<title>Loki | Login</title>
+	<title>Segredu | Login</title>
 	<ui:include src="meta.xhtml"></ui:include>
 </h:head>
 <h:body>
@@ -17,6 +18,8 @@
 		<pm:content id="content">
 
 			<h:form id="form">
+				<p:growl id="growl" showDetail="false" />
+
 				<pm:field>
 					<h:outputLabel for="email" value="Email: " />
 					<p:inputText id="email" value="#{loginMB.entity.email}" required="true" />
@@ -31,8 +34,13 @@
 
 				<p:separator />
 				<pm:field>
-					<p:commandButton value="Login" icon="forward" action="#{loginMB.actionLogin}" />
+					<p:commandButton value="Login" icon="forward" action="#{loginMB.actionLogin}" update="growl"/>
+					<p:button value="Entrar usando Facebook"
+						style="background-color: #3B589C; color: #fff !important;font-size: 15px !important;text-shadow: none;background-image: url('https://s3-sa-east-1.amazonaws.com/skoob-sp/img/v2/icon-facebook.jpg');
+    background-repeat: no-repeat; background-position: left center;"
+						href="login_.jsf" />
 				</pm:field>
+
 			</h:form>
 		</pm:content>
 	</pm:page>

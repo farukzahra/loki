@@ -2,6 +2,7 @@ package br.com.loki.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,9 @@ public class Usuario implements Serializable {
     private String nome;
 
     private String senha;
+
+    @Column(name = "ID_FACEBOOK")
+    private String idFacebook;
 
     public Long getId() {
         return id;
@@ -51,5 +55,13 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getIdFacebook() {
+        return idFacebook;
+    }
+
+    public void setIdFacebook(String idFacebook) {
+        this.idFacebook = idFacebook;
     }
 }
