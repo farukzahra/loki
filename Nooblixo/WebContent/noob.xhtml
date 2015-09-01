@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:og="http://opengraphprotocol.org/schema/">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+	<title>NoobKING</title>
+	<ui:include src="meta.xhtml"></ui:include>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+
+		<pm:content id="content">
+			<h:form id="form">
+				<p:growl id="growl" showDetail="false" />
+
+				<pm:field>
+					<h:outputLabel for="invocador" value="Invocador: " />
+					<p:inputText id="invocador" value="#{noobMB.entity.invocador}" />
+				</pm:field>
+				<pm:field>
+					<p:button id="opgg" target="_blank"
+						onclick="window.open('http://br.op.gg/summoner/userName='+$('#first\\:form\\:invocador_input').val());return false;" value="Conferir Invocador"
+						icon="ui-icon-search" />
+				</pm:field>
+				<pm:field>
+					<h:outputLabel for="descricao" value="Observações: " />
+					<p:inputTextarea id="descricao" value="#{noobMB.entity.descricao}" cols="50" />
+					<p:message for="descricao" />
+				</pm:field>
+				<pm:field>
+					<h:outputLabel for="posicao" value="Posição: " />
+					<p:selectOneMenu id="posicao" value="#{noobMB.entity.posicao}">
+						<f:selectItem itemLabel="Adc" itemValue="Adc" />
+						<f:selectItem itemLabel="Mid" itemValue="Mid" />
+						<f:selectItem itemLabel="Suporte" itemValue="Suporte" />
+						<f:selectItem itemLabel="Top" itemValue="Top" />
+						<f:selectItem itemLabel="Jungler" itemValue="Jungler" />
+					</p:selectOneMenu>
+					<p:message for="posicao" />
+				</pm:field>
+
+				<p:separator />
+
+				<p:commandButton id="persist" value="Salvar" actionListener="#{noobMB.actionPersist}" process="@form" update="@form,growl" icon="ui-icon-plus" />
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

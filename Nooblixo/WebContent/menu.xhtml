@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+<pm:header title="NoobKING" fixed="true">
+	<p:commandButton id="btn-basic" value="Menu" type="button" icon="ui-icon-bars" />
+</pm:header>
+<p:overlayPanel for="btn-basic" widgetVar="pnl-basic" at="left" showEffect="overlay">
+	<p:graphicImage url="images/trollking_peq.png" />
+	<h2>#{loginMB.nomeUsuarioLogado}</h2>
+	<p:menu>
+		<p:menuitem value="Relatar Noob" url="noob.jsf" icon="ui-icon-comment"/>
+		<p:menuitem value="Minha Lista" url="noobs.jsf" icon="ui-icon-bullets"/>
+		<p:menuitem value="Pesquisar" url="pesquisar.jsf" icon="ui-icon-search"/>
+		<p:menuitem value="Sair" url="login.jsf?logoff=true" icon="ui-icon-power" />
+	</p:menu>
+</p:overlayPanel>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+	<title>NoobKING</title>
+	<ui:include src="meta.xhtml"></ui:include>
+</h:head>
+<h:body>
+	<pm:page id="first">
+		<ui:include src="menu.xhtml"></ui:include>
+		<pm:content id="content">
+
+			<h:form id="form">
+				<p:dataTable var="n" value="#{noobMB.noobs}" tableStyleClass="ui-table-columntoggle">
+					<p:column headerText="Data" priority="3">
+						<h:outputText value="#{n.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Invocador" priority="1">
+						<a href="http://br.op.gg/summoner/userName=#{n.invocador}" target="_blank"><h:outputText value="#{n.invocador}" /></a>
+					</p:column>
+					<p:column headerText="Posição" priority="1">
+						<h:outputText value="#{n.posicao}" />
+					</p:column>
+					<p:column headerText="Descrição" priority="2">
+						<h:outputText value="#{n.descricao}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>
