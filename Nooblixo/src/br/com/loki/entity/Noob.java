@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "noob")
@@ -30,6 +31,9 @@ public class Noob implements Serializable {
 
     @ManyToOne
     private Usuario usuario;
+
+    @Transient
+    private int qtd;
 
     public Long getId() {
         return id;
@@ -77,5 +81,13 @@ public class Noob implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
     }
 }

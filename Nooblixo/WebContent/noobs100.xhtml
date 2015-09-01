@@ -13,7 +13,7 @@
 		<pm:content id="content">
 
 			<h:form id="form">
-				<p:dataTable var="n" value="#{noobMB.noobs}" tableStyleClass="ui-table-columntoggle">
+				<p:dataTable var="n" value="#{noobMB.noob100Mais}" tableStyleClass="ui-table-columntoggle">
 					<p:column headerText="Data" priority="3">
 						<h:outputText value="#{n.data}">
 							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
@@ -22,14 +22,8 @@
 					<p:column headerText="Invocador" priority="1">
 						<a href="http://br.op.gg/summoner/userName=#{n.invocador}" target="_blank"><h:outputText value="#{n.invocador}" /></a>
 					</p:column>
-					<p:column headerText="Posição" priority="1">
-						<h:outputText value="#{n.posicao}" />
-					</p:column>
-					<p:column headerText="Descrição" priority="2">
-						<h:outputText value="#{n.descricao}" />
-					</p:column>
-					<p:column headerText="Ação" priority="1" style="text-align:center;font-weight:bold">
-						<p:commandButton value="Excluir" action="#{noobMB.actionRemove(n)}" process="@this" update="@form" icon="ui-icon-minus"/>
+					<p:column headerText="Total Reports" priority="1">
+						<h:outputText value="#{n.qtd}" />
 					</p:column>
 				</p:dataTable>
 			</h:form>

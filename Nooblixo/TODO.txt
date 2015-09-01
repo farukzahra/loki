@@ -1,8 +1,2 @@
-- LOGIN
-  - normal
-  - facebook
-  - twitter
-- Publicar em rede sociais
-  - facebook
-  - twitter
-- Skins melhor
+- Listar informações de outros usuários
+- Estatisticas

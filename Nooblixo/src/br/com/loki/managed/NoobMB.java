@@ -11,6 +11,7 @@ import br.com.loki.bo.BO;
 import br.com.loki.bo.NoobBO;
 import br.com.loki.entity.Noob;
 import br.com.loki.exception.BancoDadosException;
+import br.com.loki.exception.IntegridadeReferencialException;
 
 @ManagedBean
 @ViewScoped
@@ -25,6 +26,15 @@ public class NoobMB extends LokiManagedBean<Noob> {
         try {
             noobs = ((NoobBO)getBo()).listByUsuario(getUsuarioLogado());
         } catch (Exception e) {
+        }
+    }
+    
+    public void actionRemove(Noob n){
+        try {
+            ((NoobBO)getBo()).remove(n);
+            noobs = ((NoobBO)getBo()).listByUsuario(getUsuarioLogado());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -48,9 +58,14 @@ public class NoobMB extends LokiManagedBean<Noob> {
         getEntity().setData(Calendar.getInstance().getTime());
         // super.actionPersist(event);
         try {
-            ((NoobBO)getBo()).persist(getEntity());
-            setEntity(new Noob());
-            addInfo("Obrigado pelo cadastro!", "");
+            List<Noob> invocador = ((NoobBO)getBo()).listByUsuarioAndInvocador(getUsuarioLogado(), getEntity().getInvocador());
+            if(invocador == null || invocador.isEmpty()) {
+                ((NoobBO)getBo()).persist(getEntity());
+                setEntity(new Noob());
+                addInfo("Obrigado pelo cadastro!", "");
+            }else{
+                addInfo("Invocador já foi cadastro por você!", "");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,5 +89,14 @@ public class NoobMB extends LokiManagedBean<Noob> {
     
     public String getUrl(){
         return "http://br.op.gg/summoner/userName=";
+    }
+    
+    public List<Noob> getNoob100Mais(){
+        try {
+            return ((NoobBO)getBo()).listRelatorio100Mais();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
